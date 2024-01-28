@@ -1,0 +1,491 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set a background gradient for the body */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #667db6, #0082c8, #0082c8, #667db6);
+}
+
+/* Chat container and elements */
+#chat-container,
+#user-input,
+#send-button,
+#start-listening-button {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fade-in 3s ease-in-out forwards;
+}
+/* Keyframes for fade-in animation */
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Chat display with delayed appearance */
+#chat-display {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fade-in 1s ease-in-out forwards;
+    animation-delay: 0.5s;
+}
+
+/* Background image */
+#background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('chatbot_bg.png');
+    background-size: cover;
+    opacity: 0.7;
+    z-index: -1;
+    animation: background-fade 3s ease-in-out forwards;
+}
+
+/* Keyframes for background image fade */
+@keyframes background-fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+/* Chat container styling with moving light animation */
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 40px);
+    margin-bottom: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Pseudo-elements for creating moving light animation */
+#chat-container::before,
+#chat-container::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-radius: 20px;
+    animation: moving-light 6s linear infinite;
+}
+
+#chat-container::before {
+    border-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+    border-image-slice: 1;
+    animation-delay: 0s;
+}
+
+#chat-container::after {
+    border-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+    border-image-slice: 1;
+    animation-delay: 3s;
+}
+
+/* Keyframes for the moving light animation */
+@keyframes moving-light {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Chat display styling with updated animations */
+#chat-display {
+    width: 100%;
+    max-height: 60%;
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    animation: fade-in 1s ease-in-out forwards, light-move 10s linear infinite, colorful-border 3s infinite;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 25%, transparent 25%);
+    background-size: 200% 100%;
+    background-position: -100% 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Input container styling */
+#input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    animation: light-move 10s linear infinite;
+    border: 2px solid transparent;
+    border-image: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 25%, transparent 25%) 1;
+    border-image-slice: 1;
+    transition: border 0.3s ease-in-out;
+}
+
+#user-input:focus + #send-button {
+    border: 2px solid #3498db;
+    transition: border 0.3s ease-in-out;
+}
+
+/* User input field styling */
+#user-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    color: #3498db;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: background-color 0.3s ease-in-out;
+}
+
+#user-input:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Send button styling */
+#send-button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#send-button:hover {
+    background-color: #2980b9;
+}
+
+/* Copyright text styling */
+#copyright {
+    position: fixed;
+    bottom: 0;
+    left: 20px;
+    font-size: 12px;
+    color: white;
+}
+
+/* Initial message style */
+#chat-display::before {
+    content: 'Hi, How can I assist you?';
+    display: block;
+    font-style: italic;
+    color: #181a19;
+    margin-bottom: 10px;
+    background-color: #0bdc9a;
+    width:63%;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 2000px) {
+    #chat-display {
+        width: 80%;
+    }
+    #input-container {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    #chat-display {
+        width: 80%;
+    }
+    #user-input {
+        width: 80%;
+    }
+}
+
+@media (max-width: 576px) {
+    #chat-display {
+        width: 95%;
+    }
+
+    #user-input {
+        font-size: 14px;
+    }
+
+    #send-button {
+        font-size: 14px;
+    }
+}
+
+/* Social icons styling */
+#social-icons {
+    display: flex;
+    gap: 25px;
+    margin-top: 10px;
+}
+
+#social-icons a {
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+    transition: color 0.3s ease-in-out;
+    display: inline-block;
+}
+
+#social-icons a:hover {
+    color: #ec4e20;
+}
+
+/* Navbar styling */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-right: auto;
+}
+
+.navbar-item {
+    display: block;
+}
+
+.navbar-toggle {
+    display: none;
+    cursor: pointer;
+    color: #fff;
+    position: relative;
+    font-size: 20px;
+    margin-left: auto;
+    transition: transform 0.3s;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .navbar {
+        justify-content: center;
+    }
+
+    .navbar-item {
+        display: none;
+    }
+
+    .navbar-toggle {
+        display: block;
+        /*position: fixed;
+        top: 10px;
+        left: 10px;*/
+    }
+}
+
+.navbar-toggle {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.navbar-toggle:hover .dropdown-content {
+    display: block;
+}
+
+/* Chat message styling */
+.chat-message {
+    color: #fff;
+    max-width: 80%;
+    align-self: flex-end;
+    clear: both;
+}
+
+.user-message {
+    background-color: #1489dc;
+    color: #151716;
+    border-radius: 15px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background:transparent;
+    margin-left:100px;
+    max-width: 70%;
+    align-self: flex-start;
+    clear: both;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    /*animation: slide-in-left 0.5s ease-in-out, pulse 1s infinite, colorful-border 3s infinite;*/
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Chatbot message styling with additional animations */
+.chatbot-message {
+    background-color: #0bdc9a;
+    color: #0d0d0d;
+    border-radius: 15px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    max-width: 70%;
+    align-self: flex-end;
+    clear: both;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    /*animation: slide-in-right 0.5s ease-in-out, pulse 1s infinite, colorful-border 3s infinite;*/
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Chat History Container */
+#chat-history-container {
+    position: fixed;
+    left: -300px; /* Initially off-screen */
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 999; /* Ensure the chat history is on top */
+    overflow-y: auto;
+    transition: left 0.3s ease-in-out; /* Add transition for smooth slide-in/out */
+}
+
+/* Show the chat history when the container is active */
+#chat-history-container.active {
+    left: 0;
+}
+
+#chat-history-container h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#chat-history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Keep the hidden class definition as is */
+.hidden {
+    display: none;
+}
+#chat-history-container {
+    /* Other styles */
+    display: none; /* Initially hidden */
+}
+
+
+/* Keyframes for colorful-border animation */
+@keyframes colorful-border {
+    0% {
+        border-image: linear-gradient(90deg, #ff5733, #2ecc71, #3498db);
+        border-image-slice: 1;
+    }
+    25% {
+        border-image: linear-gradient(90deg, #2ecc71, #3498db, #ff5733);
+        border-image-slice: 1;
+    }
+    50% {
+        border-image: linear-gradient(90deg, #3498db, #ff5733, #2ecc71);
+        border-image-slice: 1;
+    }
+    75% {
+        border-image: linear-gradient(90deg, #ff5733, #2ecc71, #3498db);
+        border-image-slice: 1;
+    }
+    100% {
+        border-image: linear-gradient(90deg, #2ecc71, #3498db, #ff5733);
+        border-image-slice: 1;
+    }
+}
+
+/* Keyframes for slide-in-left animation */
+@keyframes slide-in-left {
+    0% {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Keyframes for slide-in-right animation */
+@keyframes slide-in-right {
+    0% {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Keyframes for pulse animation */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Hover effect for messages */
+.user-message:hover,
+.chatbot-message:hover {
+    transform: scale(1.02) rotate(1deg);
+}
+#toggle-history-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background-color: rgba(105, 115, 227, 0.8);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    color: rgb(243, 238, 238); /* Add text color */
+    font-weight: bold; /* Add font weight */
+    outline: none; /* Remove outline on click */
+}
+
+#toggle-history-button:hover {
+    background-color: rgba(82, 160, 219, 0.9);
+    cursor: pointer;
+}
