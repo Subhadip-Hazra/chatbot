@@ -23,9 +23,9 @@ This project utilizes a combination of technologies including Flask for the back
 
 To run the chatbot locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/yourusername/ChatBotProject.git`
+1. Clone the repository: `[git clone https://github.com/yourusername/ChatBotProject.git](https://github.com/Subhadip-Hazra/chatbot.git)`
 2. Install dependencies: `pip install -r requirements.txt`
-3. Run the Flask app: `python app.py`
+3. Run the Flask app: `backend.py`
 4. Access the chatbot interface in your web browser at `http://localhost:5000`
 
 ## Contributing
